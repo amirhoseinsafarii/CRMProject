@@ -1,0 +1,28 @@
+{% extends 'organization/base.html' %}
+{% load static %}
+{% block content %}
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>نام محصول</th>
+                    <th>قیمت</th>
+                    <th>مشمول مالیات</th>
+                    <th>دانلود کاتالوگ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in object_list %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.name }}</td>
+                    <td>{{ i.price }}</td>
+                    <td>{{ i.is_Includesـtaxes }}</td>
+                    <td>
+                        <a href="" class="btn btn-primary">PDF</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}

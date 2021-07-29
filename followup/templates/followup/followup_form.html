@@ -1,0 +1,15 @@
+
+{% extends 'organization/base.html' %}
+{% block page_header_title %}
+    🆕 {{ page_title }}
+{% endblock %}
+{% block content %}
+    <div class="col-12">
+        <h3>{{ page_title }}</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_ul }}
+            <button type="submit" class="btn btn-primary">💾 Save</button>
+        </form>
+    </div>
+{% endblock %}

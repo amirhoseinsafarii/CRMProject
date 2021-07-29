@@ -1,0 +1,25 @@
+{% extends 'organization/base.html' %}
+{% load static %}
+{% block content %}
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>کاربر</th>
+                    <th> تاریخ</th>
+                    <th>گرارش</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in object_list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ i.user }}</td>
+                        <td>{{ i.created_on }}</td>
+                        <td>{{ i.title }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+{% endblock %}

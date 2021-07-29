@@ -1,0 +1,28 @@
+{% extends 'organization/base.html' %}
+{% block page_header_title %}
+    مشخصات سازمان
+{% endblock %}
+{% block content %}
+    <div class="">
+        <h2>مشخصات سازمان :{{ object.organization_name }}</h2>
+        <p>استان:{{ object.city }}</p>        <p>تلفن:{{ object.phone }}</p>
+        <p>تعداد کارگران:{{ object.number_of_labor }}</p>
+        <p> {{ object.created_on }}:تاریخ ثبت</p>
+        <p>  {{ request.user }}:ثبت توسط</p>
+        <p> محصولات تولیدی: {% for p in object.org_product %}{{ p }}{% endfor %}</p>
+        <p> محصولات پیشنهادی ما:{% for product in object.s_products %}{{ product }}{% endfor %}</p>
+        <h4>اطلاعات مخاطب</h4>
+        <p> نام و نام خانوادگی:{{ object.full_name }}</p>
+        <p> شماره تلفن:{{ object.phone_number }}</p>
+    </div>
+    <div>
+        <a href="{% url 'followup:list-followup' %}" class="btn btn-sm btn-light">
+            برای مشاهده تاریخچه پیگیری کلیک کنید
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'organization:edit' object.pk %}" class="btn btn-sm btn-light">
+            ویرایش
+        </a>
+    </div>
+{% endblock %}

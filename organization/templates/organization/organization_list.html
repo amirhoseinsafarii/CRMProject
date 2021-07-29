@@ -1,0 +1,35 @@
+{% extends 'organization/base.html' %}
+{% load static %}
+{% block content %}
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>نام سازمان</th>
+                    <th>ثبت کننده</th>
+                    <th>مخاطب</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in object_list %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                        <a href="{% url 'organization:vieworganization' i.pk%}" class="btn btn-sm btn-light">
+                            {{ i.organization_name }}
+                        </a>
+                    </td> 
+                    <td>{{ request.user }}</td>
+                    <td>{{ i.full_name }}</td>
+                    <td>
+                        <a href="{% url 'followup:create-followup' %}" class="btn btn-sm btn-light">
+                            ثبت پیگیری
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% include 'organization/pagination.html' %}
+{% endblock %}
