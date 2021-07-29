@@ -36,10 +36,8 @@ class OrganizationProducts(models.Model):
         return self.name
 
     def products_s(self):
-        for product in self.s_products.all():
-             print(product.name)
-        x = "".join(product.name)
-        return x
+        return [product.name for product in self.s_products.all()]
+       
     
 
     def p(self):

@@ -3,26 +3,56 @@
     مشخصات سازمان
 {% endblock %}
 {% block content %}
-    <div class="">
-        <h2>مشخصات سازمان :{{ object.organization_name }}</h2>
-        <p>استان:{{ object.city }}</p>        <p>تلفن:{{ object.phone }}</p>
-        <p>تعداد کارگران:{{ object.number_of_labor }}</p>
-        <p> {{ object.created_on }}:تاریخ ثبت</p>
-        <p>  {{ request.user }}:ثبت توسط</p>
-        <p> محصولات تولیدی: {% for p in object.org_product %}{{ p }}{% endfor %}</p>
-        <p> محصولات پیشنهادی ما:{% for product in object.s_products %}{{ product }}{% endfor %}</p>
-        <h4>اطلاعات مخاطب</h4>
-        <p> نام و نام خانوادگی:{{ object.full_name }}</p>
-        <p> شماره تلفن:{{ object.phone_number }}</p>
-    </div>
-    <div>
-        <a href="{% url 'followup:list-followup' %}" class="btn btn-sm btn-light">
-            برای مشاهده تاریخچه پیگیری کلیک کنید
-        </a>
-    </div>
-    <div>
+    <div class="" style="float:right">
         <a href="{% url 'organization:edit' object.pk %}" class="btn btn-sm btn-light">
             ویرایش
+        </a>
+    </div>
+    <div class="mt-4">
+        <h3>مشخصات سازمان: {{ object.organization_name}}</h3>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>استان</th>
+                    <th>تلفن</th>
+                    <th>محصولات تولیدی</th>
+                    <th>تعداد کارگران</th>
+                    <th>محصولات پیشنهادی ما</th>
+                    <th>تبت توسط</th>
+                    <th>تاریخ ثبت</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ object.city }}</td>
+                    <td>{{ object.phone }}</td>
+                    <td>{% for p in object.org_product %}{{ p }}{% endfor %}</td>
+                    <td>{{ object.number_of_labor }}</td>
+                    <td>{% for product in object.s_products %}{{ product }}{% endfor %}</td>
+                    <td>{{ request.user }}</td>
+                    <td>{{ object.created_on }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <h3> اطلاعلاعات مخاطب</h3>
+                <tr>
+                    <th>نام و نام خانوادگی</th>
+                    <th>شماره تلفن</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ object.full_name }}</td>
+                    <td>{{ object.phone_number }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-6 mt-4">
+        <a href="{% url 'followup:list-followup' %}" class="btn btn-sm btn-light">
+            برای مشاهده تاریخچه پیگیری کلیک کنید
         </a>
     </div>
 {% endblock %}
