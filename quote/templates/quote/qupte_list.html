@@ -1,0 +1,41 @@
+{% extends 'organization/base.html' %}
+{% load static %}
+{% block content %}
+        <h3>لیست پیش فاکتورها</h3>
+        <h5>برای انتخاب محصولات بر روی نام مشتری خود کلیک کنید</h5>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>نام مشتری</th>
+                    <th> دستگاه ها</th>
+                    <th>pddf خروجی</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in object_list %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                        <a href="{% url 'quote:quoteitem-create' i.pk %}" class="btn btn-sm btn-light">
+                            {{ i.organization.full_name }}
+                        </a>
+                    </td> 
+                    <td>{% for item in i.quoteitem_set.all %}
+                        {{ item.product }} {% endfor %}</td>
+                    <td>
+                        <a href="{% url 'quote:print-quote' i.pk %}" class="btn btn-sm btn-light">
+                            pdf
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'followup:email' i.pk %}" class="btn btn-sm btn-light">
+                            ارسال ایمیل به مخاطب
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}

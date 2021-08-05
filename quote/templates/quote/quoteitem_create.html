@@ -1,0 +1,44 @@
+{% extends 'organization/base.html' %}
+{% block content %}
+    <div class="container" dir="rtl" align="right">
+        <h3 dir="rtl" align="right">ثبت سازمان برای پیش فاکتور</h3>
+        <form method="post">
+            {% csrf_token %}
+                <div class="form-group">
+                    <label for="{{ field.auto_id }}" class="control-label mb-1">
+                        انتخاب سازمان
+                    </label>
+                    <div class="control-group">
+                        {{ form.quote }}
+                    </div>
+                </div>        
+                <div class="form-group">
+                    <label for="{{ field.auto_id }}" class="control-label mb-1">
+                        انتخاب محصولات
+                    </label>
+                    <div class="control-group">
+                        {{ form.product }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="{{ field.auto_id }}" class="control-label mb-1">
+                         تعداد
+                    </label>
+                    <div class="control-group">
+                        {{ form.qty }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="{{ field.auto_id }}" class="control-label mb-1">
+                        درصد تخفیف 
+                    </label>
+                    <div class="control-group">
+                        {{ form.discount }}
+                    </div>
+                </div>
+            <button type="submit" class="btn btn-primary" value="Submit">
+                دخیره
+            </button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/all.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+{% block content %}
+    <h3 id="organ_name">نام سازمان:{{ object.organization.organization_name }}</h3>
+    <h4 id="name">نام مشتری:{{ object.organization.full_name }}</h4>
+    <table class="table table-bordered table-striped" id="table" dir="rtl">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>محصول</th>
+                <th>تعداد</th>
+                <th>قیمت</th>
+                <th>تخفیف</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in object.quoteitem_set.all %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                        {{ item.product }}
+                    </td>
+                    <td>{{ item.qty }}</td>
+                    <td>{{ item.pricee }}</td>
+                    <td>{{ item.discount }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+<style>
+    #table{
+        text-align: center;
+        align-items: center;
+    }
+    #organ_name{
+        margin-left: 15cm;
+    }
+    #name{
+        margin-left: 15cm;
+    }
+</style>
+{% endblock %}

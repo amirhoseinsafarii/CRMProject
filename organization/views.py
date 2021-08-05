@@ -14,7 +14,7 @@ from . import models
 
 
 
-class ListOrganization(ListView):
+class ListOrganization(LoginRequiredMixin,ListView):
     """
     list of organizations
     """
@@ -43,7 +43,7 @@ class ListOrganization(ListView):
         context['list_exams'] = file_exams
         return context
         
-class ViewOrganization(DetailView):
+class ViewOrganization(LoginRequiredMixin,DetailView):
     """
         detail of organization
     """
@@ -65,7 +65,7 @@ class CreateOrganization(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-class EditOrganization(UpdateView):
+class EditOrganization(LoginRequiredMixin ,UpdateView):
     """
         edit a organization
     """

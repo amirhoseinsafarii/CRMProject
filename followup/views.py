@@ -1,26 +1,17 @@
 
-import select
-from django.db.models.base import Model
+from django.template.loader import render_to_string
+from followup.tasks import send_email_task
 from django.views.generic import CreateView, DetailView, UpdateView, ListView
-import selectors
 from organization import models
 from products import models
-
-from django.utils.translation import LANGUAGE_SESSION_KEY, ugettext_lazy as _
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from quote.models import Quote
 from django.http import JsonResponse, request, response
 from django.shortcuts import render, get_object_or_404,HttpResponseRedirect, HttpResponse, redirect
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST, require_GET
-from django.contrib.auth.decorators import login_required
-from django.views.generic.base import TemplateResponseMixin
 from . import models, forms
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.core.exceptions import PermissionDenied
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.management.base import BaseCommand
 from django.urls import reverse_lazy
 from . import models
+from django.contrib import messages
 
 
 class FollowUpCreate(LoginRequiredMixin,CreateView):
@@ -35,6 +26,16 @@ class FollowUpCreate(LoginRequiredMixin,CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
     
-class ListFollowUp(ListView):
+class FollowUpList(ListView):
 
     queryset = models.FollowUP.objects.all()
+
+
+def email(request, pk):
+    quote_instance = get_object_or_404(klass=Quote, pk=pk)
+    sender = request.user.username
+    body = render_to_string(template_name='quote/quote_detail.html', context={'object': quote_instance})
+    receiver = quote_instance.organization.email
+    send_email_task(body, receiver, sender)
+    messages.success(request, 'email sent successfuly')
+    return redirect(reverse_lazy('quote:quote-list'))

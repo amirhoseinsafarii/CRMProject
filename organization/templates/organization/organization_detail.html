@@ -3,14 +3,22 @@
     مشخصات سازمان
 {% endblock %}
 {% block content %}
-    <div class="" style="float:right">
-        <a href="{% url 'organization:edit' object.pk %}" class="btn btn-sm btn-light">
-            ویرایش
-        </a>
-    </div>
+    <center>
+        <div >
+            <a href="{% url 'organization:edit' object.pk %}" class="btn btn-sm btn-light">
+                ویرایش
+            </a>
+            <a href="{% url 'quote:quote-create' %}" class="btn btn-sm btn-light">
+                صدور پیش فاکتور
+            </a>
+        </div>
+    </center>
     <div class="mt-4">
-        <h3>مشخصات سازمان: {{ object.organization_name}}</h3>
-        <table class="table table-bordered table-striped">
+        <center>
+            <h3 id="organ_name">مشخصات سازمان: {{ object.organization_name}}</h3>
+        </center>
+        <center>
+        <table class="table table-bordered table-striped" dir="rtl" align="right">
             <thead>
                 <tr>
                     <th>استان</th>
@@ -34,25 +42,39 @@
                 </tr>
             </tbody>
         </table>
-        <table class="table table-bordered table-striped">
-            <thead>
-                <h3> اطلاعلاعات مخاطب</h3>
-                <tr>
-                    <th>نام و نام خانوادگی</th>
-                    <th>شماره تلفن</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{ object.full_name }}</td>
-                    <td>{{ object.phone_number }}</td>
-                </tr>
-            </tbody>
-        </table>
+        </center>
+            <div>
+                <center>
+                <table class="table table-bordered table-striped" >
+                    <thead>
+                        <h3 id="customer"> اطلاعلاعات مخاطب</h3>
+                        <tr>
+                            <th>نام و نام خانوادگی</th>
+                            <th>شماره تلفن</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ object.full_name }}</td>
+                            <td>{{ object.phone_number }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </center>
+        </div>  
     </div>
-    <div class="col-6 mt-4">
+    <div class="col-6 mt-4" dir="rtl" align="right">
         <a href="{% url 'followup:list-followup' %}" class="btn btn-sm btn-light">
             برای مشاهده تاریخچه پیگیری کلیک کنید
         </a>
     </div>
+    <style>
+        #organ_name {
+            background-color: #666;
+            padding: 30px;
+            text-align: center;
+            font-size: 35px;
+            color: white;
+        }
+    </style>
 {% endblock %}

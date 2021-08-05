@@ -9,3 +9,15 @@ class FollowUpAdmin(admin.ModelAdmin):
        'content',
        'organization',
     )
+
+@admin.register(models.EmailHistory)
+class EmailHistoryAdmin(admin.ModelAdmin):
+    list_display = [
+        'sender', 
+        'receiver', 
+        'status'
+        ]
+    list_filter = [
+        'status', 
+        'receiver'
+        ]

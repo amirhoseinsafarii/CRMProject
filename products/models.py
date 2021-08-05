@@ -8,10 +8,11 @@ class Product(models.Model):
     price = models.PositiveIntegerField(default=0, db_index=True)
     is_Includesـtaxes = models.BooleanField(default=False,verbose_name='ایا مشمول مالیات است؟')
     image = models.ImageField(verbose_name='عکس محصول')
+    pdf = models.FileField(upload_to='pdf', verbose_name='کاتالوگ', blank=True, null=True)
     description = models.TextField(verbose_name='توضحیات محصول',help_text='متن نمایشی برای توصیف محصول')
 
     def __str__(self):
-        return f'{self.name}'
+        return self.name
 
 
     

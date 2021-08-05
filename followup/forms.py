@@ -10,5 +10,4 @@ class FollwUpForm(forms.ModelForm):
             'title',
             'content',
             'organization',
-          
         )

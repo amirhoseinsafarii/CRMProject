@@ -1,0 +1,27 @@
+version: '3'
+volumes:
+  CrmDbData:
+services:
+  database:
+    image: "postgres:10-alpine"
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: usr_crm
+      POSTGRES_PASSWORD: 12345678
+      PGPASSWORD: 12345678
+      POSTGRES_DB: crm
+      PGDATA: /db_data
+    volumes:
+      - CrmDbData:/db_data
+  mailhog:
+    image: "mailhog/mailhog"
+    ports: 
+      - 1025:1025
+      - 8025:8025
+  broker:
+    image: "rabbitmq:alpine"
+    ports:
+        - 5672:5672        
+
+  
