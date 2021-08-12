@@ -3,7 +3,9 @@ from . import enums
 # Create your models here.
 
 class FollowUP(models.Model):
-    title = models.SlugField(max_length=50)
+    """
+        followup model
+    """
     organization = models.ForeignKey('organization.Organization', verbose_name='یرای سازمان', on_delete=models.PROTECT)
     created_on = models.DateField(auto_now_add=True, verbose_name='تاریخ ثبت گزارش')
     content = models.TextField(max_length=500, verbose_name='متن گزارش کار')
@@ -15,6 +17,9 @@ class FollowUP(models.Model):
         verbose_name_plural =' پیگیری ها'
 
 class EmailHistory(models.Model):
+    """
+        emailhistory model
+    """
     receiver = models.ForeignKey('organization.Organization', verbose_name='ارسال به',on_delete=models.PROTECT)
     status = models.CharField(max_length=10,verbose_name='وضعیت ارسال',choices=enums.EmailStatus.choices)
     send_on = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ارسال')

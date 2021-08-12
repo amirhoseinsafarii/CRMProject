@@ -7,16 +7,23 @@
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
 {% block content %}
-    <h3 id="organ_name">نام سازمان:{{ object.organization.organization_name }}</h3>
-    <h4 id="name">نام مشتری:{{ object.organization.full_name }}</h4>
+    <h3 id="organ_name">
+        نام سازمان:
+        {{ object.organization.organization_name }}
+    </h3>
+    <h4 id="name">
+        نام مشتری:
+        {{ object.organization.full_name }}
+    </h4>
     <table class="table table-bordered table-striped" id="table" dir="rtl">
         <thead>
             <tr>
                 <th>#</th>
                 <th>محصول</th>
                 <th>تعداد</th>
-                <th>قیمت</th>
                 <th>تخفیف</th>
+                <th> قیمت پایه محصول</th>
+                <th>قیمت بااحتساب مالیات و تخفیف</th>
             </tr>
         </thead>
         <tbody>
@@ -27,22 +34,24 @@
                         {{ item.product }}
                     </td>
                     <td>{{ item.qty }}</td>
-                    <td>{{ item.pricee }}</td>
                     <td>{{ item.discount }}</td>
+                    <td>{{ item.product.price }}تومان</td>
+                    <td> {{ item.pricee }}تومان</td>
                 </tr>
             {% endfor %}
-        </tbody>
+            <h3>مبلغ کل  : {{ object.total_price }} تومان</h3>
+        </tbody>   
     </table>
 <style>
     #table{
         text-align: center;
         align-items: center;
     }
-    #organ_name{
+    /* #organ_name{
         margin-left: 15cm;
     }
     #name{
         margin-left: 15cm;
-    }
+    } */
 </style>
 {% endblock %}

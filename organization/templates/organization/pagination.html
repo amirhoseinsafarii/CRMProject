@@ -1,19 +1,21 @@
 {% if is_paginated %}
+    <nav aria-label="Page navigation example" style="background-color: black;">
         <ul class="pagination">
         {% if page_obj.has_previous %}
-            <li>
-            <span><a href="?{{ pname }}={{ page_obj.previous_page_number }}">Previous</a></span>
+            <li class="page-item">
+                <a class="page-link" href="?{{ pname }}={{ page_obj.previous_page_number }}" style="position: absolute;right: 737;top: 450;">Previous</a>
             </li>
         {% endif %}
-        <li class="">
-            <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+        <li class="page-item">
+            <span class="page-link" style="position: absolute;right: 640;top: 450;">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
         </li>
         {% if page_obj.has_next %}
-            <li>
-            <span><a href="?page={{ page_obj.next_page_number }}">Next</a></span>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}" style="position: absolute;right: 590;top: 450;">Next</a>
             </li>
         {% endif %}
         </ul>
+    </nav>
     {% else %}
         <h3>Your page</h3>
         <p>page not yet available</p>

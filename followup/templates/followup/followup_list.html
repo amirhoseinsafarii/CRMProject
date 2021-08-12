@@ -1,8 +1,9 @@
 {% extends 'organization/base.html' %}
 {% load static %}
 {% block content %}
-        <table class="table table-bordered table-striped">
-            <thead>
+    <body style="margin: 100;background-color: #f3f3f3;">
+        <table class="table" dir="rtl">
+            <thead class="table-dark">
                 <tr>
                     <th>#</th>
                     <th>کاربر</th>
@@ -16,10 +17,10 @@
                         <td>{{ forloop.counter }}</td>
                         <td>{{ i.user }}</td>
                         <td>{{ i.created_on }}</td>
-                        <td>{{ i.title }}</td>
+                        <td>{{ i.content }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-
+    </body>
 {% endblock %}

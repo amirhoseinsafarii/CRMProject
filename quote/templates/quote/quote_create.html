@@ -1,20 +1,18 @@
 {% extends 'organization/base.html' %}
 {% block content %}
+<body style="margin: 50;background-color:#535353;">
     <div class="container">
-        <h3>ثبت سازمان برای پیش فاکتور</h3>
+        <h3 style="color: beige;margin: 20;">ثبت سازمان برای پیش فاکتور</h3>
         <form method="post">
-            {% csrf_token %}        
+            {% csrf_token %}
+            {% with field=form.slug %}
                 <div class="form-group">
-                    <label for="{{ field.auto_id }}" class="control-label mb-1">
-                        انتخاب سازمان
-                    </label>
-                    <div class="control-group">
-                        {{ form.organization }}
-                    </div>
+                    <label for="{{ field.auto_id }}">{{ field.label }}</label>
+                    <input type="text" id="{{ field.auto_id }}" class="form-control" value="{{ field.initial }}" name="{{ field.name }}">
                 </div>
-            <button type="submit" class="btn btn-primary" value="Submit">
-                دخیره
-            </button>
+            {% endwith %}
+            <button type="submit" class="btn btn-primary">💾 Save</button>
         </form>
     </div>
+</body>
 {% endblock %}

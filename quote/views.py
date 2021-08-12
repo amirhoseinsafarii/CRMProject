@@ -1,12 +1,14 @@
+from django.urls.base import is_valid_path
 import weasyprint
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 from . import models
 from . import forms
-
+from django.contrib.auth.decorators import login_required
+from organization.models import Organization
 class QuoteList(LoginRequiredMixin, ListView):
     
     model = models.Quote
@@ -18,12 +20,16 @@ class QuoteCreate(LoginRequiredMixin, CreateView):
     template_name = 'quote/quote_create.html'
     success_url = reverse_lazy('quote:quote-list')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pk'] = self.kwargs.get('pk', None)
+        return context
+
     def form_valid(self, form):
         form.instance.user= self.request.user
-        r = form.instance.user
-        r.save()
+        form.instance.organization = Organization.objects.get(pk=self.get_context_data().get('pk'))
+        form.save()
         return super().form_valid(form)
-
 
 class QuoteItemCreate(LoginRequiredMixin, CreateView):
     model = models.QuoteItem
@@ -31,7 +37,25 @@ class QuoteItemCreate(LoginRequiredMixin, CreateView):
     template_name = 'quote/quoteitem_create.html'
 
     success_url = reverse_lazy('quote:quote-list')
+        
+@login_required
+def create_quoteitem(request, pk):
 
+    form_instance = forms.QuoteItemForm()
+
+    if request.method == 'POST':
+        form_instance = forms.QuoteItemForm(data=request.POST, files=request.FILES)
+        if form_instance.is_valid():
+            form_instance.instance.user = request.user
+            post_instance = get_object_or_404(klass=models.Quote, pk=pk)
+            form_instance.instance.quote = post_instance
+            form_instance.save()
+            return redirect('quote:quote-list')
+
+    return render(request, 'quote/quoteitem_create.html', {
+        'form': form_instance,
+        'page_title': 'create a new post',
+    })
 class QuotePrint(LoginRequiredMixin, DetailView):
     model = models.Quote
     template_name = 'quote/quote_detail.html'

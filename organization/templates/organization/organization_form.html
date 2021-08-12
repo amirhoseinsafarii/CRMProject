@@ -1,19 +1,20 @@
-
 {% extends 'organization/base.html' %}
-{% block page_header_title %}
-    ثبت سازمان
-{% endblock %}
+{% load static %}
 {% block content %}
-    <div class="col-12" dir="rtl" align="right">
-        <center>
-            <h3>ثبت سازمان جدید</h3>
-        </center>
-        <center>
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_ul }}
-                <button type="submit" class="btn btn-primary">💾 Save</button>
-            </form>
-        </center>
-    </div>
+<html>
+<head>
+    <title> ثبت پیگیری</title> 
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+</head>
+<body style="background-color: #646464;">
+
+<h1 style="position: absolute;right: 600;top: 100;color: rgb(0, 0, 0);">ثبت  سازمان</h1>
+<form method="POST" style="position: absolute;top: 150;right: 500; background-color: aliceblue;" dir="rtl">
+    {% csrf_token %}
+    {{ form.as_ul }}
+    <button id="send-form">ثبت</button>
+</form>
+
+</body>
+</html>
 {% endblock %}

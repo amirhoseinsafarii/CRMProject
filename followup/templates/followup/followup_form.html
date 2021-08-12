@@ -1,15 +1,60 @@
 
-{% extends 'organization/base.html' %}
-{% block page_header_title %}
-    🆕 {{ page_title }}
-{% endblock %}
+{% load static %}
 {% block content %}
-    <div class="col-12">
-        <h3>{{ page_title }}</h3>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_ul }}
-            <button type="submit" class="btn btn-primary">💾 Save</button>
-        </form>
-    </div>
+<html>
+<head>
+    <title> ثبت پیگیری</title> 
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+</head>
+<body style="background-color: darkgrey;">
+
+    <h1 style="position: absolute;top: 100;right: 630">ثبت  پیگیری</h1>
+    <form style="position: absolute;top: 200;right: 610;">{% csrf_token %}
+        <label for="content" class="control-label mb-1" style="color: beige;">
+        </label>
+        <textarea id="content"></textarea>
+    </form>
+    <button id="send-form" type="submit" style="position: absolute;top: 250;right: 680;">ثبت</button>
+</body>
+</html>
+{% endblock %}
+{% block page_scripts %}
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    $(document).ready(function () {
+        const csrftoken = getCookie('csrftoken');
+        $('#send-form').on('click', function (event) {
+            var content = $('#content').val();
+            $.ajax({
+                method: 'POST',
+                url: '{% url "followup:create-followup" pk %}',
+                headers: {'X-CSRFToken': csrftoken},
+                data: {
+                    content: content,
+                },
+                success: function (response) {
+                    alert('با موفقیت ذخیره شد.');
+                },
+                error: function (response){
+                    alert('اطلاعات وارد شده صحیح نیست.');
+                }
+                
+            });
+        });
+    });
+</script>
 {% endblock %}

@@ -1,4 +1,6 @@
+from os import name
 from django.db import models
+from django.db.models import Sum, F, Case, When
 # Create your models here.
 
 class Quote(models.Model):
@@ -6,7 +8,8 @@ class Quote(models.Model):
     user = models.ForeignKey('auth.User', verbose_name='کاربر', on_delete=models.PROTECT)
     create_on = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')
     organization = models.ForeignKey('organization.Organization', verbose_name='سازمان', on_delete=models.PROTECT)
-    
+    slug= models.SlugField(max_length=50, unique=True, null=True, blank=True)
+
     def __str__(self):
         return f'{self.organization.organization_name}'
 
@@ -15,9 +18,9 @@ class Quote(models.Model):
         verbose_name = 'پیش فاکتور'
         verbose_name_plural = 'پیش فاکتورها'
 
-        unique_together = ['organization']
-
-    
+    def total_price(self):
+        return self.quoteitem_set.aggregate(Sum("pricee")).get("pricee__sum", 0)
+  
 class QuoteItem(models.Model):
     
     quote = models.ForeignKey('quote.Quote', on_delete=models.CASCADE)
@@ -42,6 +45,16 @@ class QuoteItem(models.Model):
     def save(self, *args, **kwargs):
         self.pricee = self.price()
         super(QuoteItem, self).save()
+
+
+    
+       
+
+
+
+
+
+        
 
     class Meta:
         permissions = []

@@ -1,75 +1,85 @@
 {% extends 'organization/base.html' %}
+{% load static %}
 {% block page_header_title %}
     مشخصات سازمان
 {% endblock %}
 {% block content %}
-    <center>
-        <div >
-            <a href="{% url 'organization:edit' object.pk %}" class="btn btn-sm btn-light">
-                ویرایش
-            </a>
-            <a href="{% url 'quote:quote-create' %}" class="btn btn-sm btn-light">
-                صدور پیش فاکتور
-            </a>
-        </div>
-    </center>
-    <div class="mt-4">
+<body style="background-color: #f3f3f3;">
+    <div style="margin: 50;position: absolute;right: 165;">
         <center>
-            <h3 id="organ_name">مشخصات سازمان: {{ object.organization_name}}</h3>
+            <div >
+                <a href="{% url 'organization:edit' object.pk %}" class="btn btn-sm btn-primary">
+                    ویرایش
+                </a>
+                <a href="{% url 'quote:quote-create' object.pk %}" class="btn btn-sm btn-success">
+                    صدور پیش فاکتور
+                </a>
+                <a href="{% url 'followup:list-followup' object.pk %}" class="btn btn-sm btn-primary">
+                      تاریخچه پیگیری  
+                </a>
+            </div>
         </center>
-        <center>
-        <table class="table table-bordered table-striped" dir="rtl" align="right">
-            <thead>
-                <tr>
-                    <th>استان</th>
-                    <th>تلفن</th>
-                    <th>محصولات تولیدی</th>
-                    <th>تعداد کارگران</th>
-                    <th>محصولات پیشنهادی ما</th>
-                    <th>تبت توسط</th>
-                    <th>تاریخ ثبت</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{ object.city }}</td>
-                    <td>{{ object.phone }}</td>
-                    <td>{% for p in object.org_product %}{{ p }}{% endfor %}</td>
-                    <td>{{ object.number_of_labor }}</td>
-                    <td>{% for product in object.s_products %}{{ product }}{% endfor %}</td>
-                    <td>{{ request.user }}</td>
-                    <td>{{ object.created_on }}</td>
-                </tr>
-            </tbody>
-        </table>
-        </center>
-            <div>
-                <center>
-                <table class="table table-bordered table-striped" >
-                    <thead>
-                        <h3 id="customer"> اطلاعلاعات مخاطب</h3>
-                        <tr>
-                            <th>نام و نام خانوادگی</th>
-                            <th>شماره تلفن</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{{ object.full_name }}</td>
-                            <td>{{ object.phone_number }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="mt-4">
+            <center>
+                <h3 id="organ_name">مشخصات سازمان: {{ object.organization_name}}</h3>
             </center>
-        </div>  
+            <center>
+            <table class="table table-bordered table-dark" dir="rtl" align="right">
+                <thead>
+                    <tr>
+                        <th>استان</th>
+                        <th>تلفن</th>
+                        <th>محصولات تولیدی</th>
+                        <th>تعداد کارگران</th>
+                        <th>محصولات پیشنهادی ما</th>
+                        <th>تبت توسط</th>
+                        <th>تاریخ ثبت</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ object.city }}</td>
+                        <td>{{ object.phone }}</td>
+                        <td>{% for p in object.org_product %}{{ p }}{% endfor %}</td>
+                        <td>{{ object.number_of_labor }}</td>
+                        <td>{% for product in object.s_products %}{{ product }}{% endfor %}</td>
+                        <td>{{ request.user }}</td>
+                        <td>{{ object.created_on }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            </center>
+                <div>
+                    <center>
+                    <table class="table table-bordered table-dark" dir="rtl">
+                        <thead>
+                            <h3 id="customer"> اطلاعات مشتری</h3>
+                            <tr>
+                                <th>نام و نام خانوادگی</th>
+                                <th>شماره تلفن</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ object.full_name }}</td>
+                                <td>{{ object.phone_number }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </center>
+            </div>  
+        </div>
     </div>
-    <div class="col-6 mt-4" dir="rtl" align="right">
-        <a href="{% url 'followup:list-followup' %}" class="btn btn-sm btn-light">
-            برای مشاهده تاریخچه پیگیری کلیک کنید
-        </a>
-    </div>
+</body>
     <style>
         #organ_name {
+            background-color: #666;
+            padding: 30px;
+            text-align: center;
+            font-size: 35px;
+            color: white;
+        }
+        #customer {
             background-color: #666;
             padding: 30px;
             text-align: center;

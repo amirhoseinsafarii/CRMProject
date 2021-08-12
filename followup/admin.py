@@ -5,7 +5,6 @@ from . import models
 @admin.register(models.FollowUP)
 class FollowUpAdmin(admin.ModelAdmin):
     list_display = (
-       'title',
        'content',
        'organization',
     )

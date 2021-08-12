@@ -10,8 +10,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from products import models
 from . import models
-
-
+from rest_framework.views import APIView
+from rest_framework import viewsets, status
+from rest_framework import generics
+from rest_framework.exceptions import NotAuthenticated
+from . import models, serializers, permissions
 
 
 class ListOrganization(LoginRequiredMixin,ListView):
@@ -71,4 +74,27 @@ class EditOrganization(LoginRequiredMixin ,UpdateView):
     """
     model = models.Organization
     form_class = forms.OrganizationForm
+    template_name = 'organization/edit_organization.html'
     success_url = reverse_lazy('organization:list-organization')
+
+def Home_page(request):
+    return render(request, 'organization/home_page.html')
+"""
+DRF Views
+"""
+class OrganizationViewSet(viewsets.ModelViewSet):
+    
+    queryset = models.Organization.objects.all()
+    serializer_class = serializers.OrganizationSerializer
+    permission_classes = [permissions.Iscreator]
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        if self.request.user.is_anonymous:
+            raise NotAuthenticated('You need to be logged on.')
+        user = self.request.user
+        return qs.filter(user=user)
+
+
+
+

@@ -7,7 +7,7 @@ class QuoteForm(forms.ModelForm):
     class Meta:
         model = models.Quote
         fields = [
-            'organization',
+            'slug',
             ]
 
 class QuoteItemForm(forms.ModelForm):
@@ -16,7 +16,6 @@ class QuoteItemForm(forms.ModelForm):
     class Meta:
         model = models.QuoteItem
         fields = [
-            'quote',
             'product', 
             'qty', 
             'discount', 

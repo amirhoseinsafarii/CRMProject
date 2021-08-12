@@ -38,6 +38,9 @@ class OrganizationProducts(models.Model):
 
     def products_s(self):
         return [product.name for product in self.s_products.all()]
+
+    def pr(self):
+        return [self.name]
        
     
 

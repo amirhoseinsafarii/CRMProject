@@ -1,8 +1,9 @@
 {% extends 'organization/base.html' %}
 {% load static %}
 {% block content %}
-        <table class="table table-bordered table-striped">
-            <thead>
+    <body style="background-color: #646464;">
+        <table class="table table-light" dir="rtl" align="right" style="margin: 150;">
+            <thead class="table-dark">
                 <tr>
                     <th>#</th>
                     <th>نام محصول</th>
@@ -19,10 +20,15 @@
                     <td>{{ i.price }}</td>
                     <td>{{ i.is_Includesـtaxes }}</td>
                     <td>
-                        <a href="" class="btn btn-primary">download</a>
+                        {% if i.pdf %}
+                            <button class='btn btn-success'>
+                                <a href="uploads/{{ i.pdf }}" style='text-decoration: none; color: white;'>دانلود</a>
+                            </button>
+                        {% endif %}
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+    </body>
 {% endblock %}

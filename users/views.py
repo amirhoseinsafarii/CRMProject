@@ -6,6 +6,13 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.shortcuts import render, redirect
 
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import serializers
+from django.contrib.auth import get_user_model
+
+from rest_framework.generics import RetrieveAPIView
+from rest_framework.response import Response
+
 
 
 
@@ -48,3 +55,16 @@ def logout_view(request):
     logout(request)
     messages.info(request, "You\'ve been logged out.")
     return redirect('')
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ('id', 'username')
+
+
+class UserAPIView(RetrieveAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = UserSerializer
+
+    def get_object(self):
+        return self.request.user
