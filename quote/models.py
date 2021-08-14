@@ -8,7 +8,7 @@ class Quote(models.Model):
     user = models.ForeignKey('auth.User', verbose_name='کاربر', on_delete=models.PROTECT)
     create_on = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')
     organization = models.ForeignKey('organization.Organization', verbose_name='سازمان', on_delete=models.PROTECT)
-    slug= models.SlugField(max_length=50, unique=True, null=True, blank=True)
+    slug= models.CharField(max_length=50, unique=True, null=True, blank=True)
 
     def __str__(self):
         return f'{self.organization.organization_name}'

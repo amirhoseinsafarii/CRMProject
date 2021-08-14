@@ -20,12 +20,12 @@
                     <td>{{ i.full_name }}</td> 
                     <td>{{ request.user }}</td>
                     <td>
-                        <a href="{% url 'followup:create-followup' i.pk %}" class="btn btn-sm btn-light">
+                        <a href="{% url 'followup:create-followup' i.pk %}" class="btn btn-sm btn-success">
                             ثبت پیگیری
                         </a>
                     </td>
                     <td>
-                        <a href="{% url 'organization:vieworganization' i.pk%}" class="btn btn-sm btn-light">
+                        <a href="{% url 'organization:vieworganization' i.pk%}" class="btn btn-sm btn-warning">
                             مشخصات سازمان
                         </a>
                     </td>
@@ -36,7 +36,7 @@
         {% include 'organization/pagination.html' %}
         <style>
             body  {
-                background-color: #646464;
+                background-color: #fdf9f9;
             }
         </style>
 {% endblock %}

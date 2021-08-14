@@ -1,8 +1,8 @@
 {% extends 'organization/base.html' %}
 {% block content %}
-<body style="margin: 50;background-color:#535353;">
+<body style="margin: 50;background-color:#fdf9f9;">
     <div class="container">
-        <h3 style="color: beige;margin: 20;">ثبت سازمان برای پیش فاکتور</h3>
+        <h3 style="color: rgb(39, 39, 37);margin: 20;">ثبت سازمان برای پیش فاکتور</h3>
         <form method="post">
             {% csrf_token %}
             {% with field=form.slug %}

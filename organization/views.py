@@ -19,7 +19,7 @@ from . import models, serializers, permissions
 
 class ListOrganization(LoginRequiredMixin,ListView):
     """
-    list of organizations
+        show list of organizations
     """
     queryset = models.Organization.objects.all()
     paginate_by = 2
@@ -76,13 +76,22 @@ class EditOrganization(LoginRequiredMixin ,UpdateView):
     form_class = forms.OrganizationForm
     template_name = 'organization/edit_organization.html'
     success_url = reverse_lazy('organization:list-organization')
+    
 
 def Home_page(request):
+    """
+        home page view
+    """
     return render(request, 'organization/home_page.html')
+
+
 """
 DRF Views
 """
 class OrganizationViewSet(viewsets.ModelViewSet):
+    """
+        api view for organization model
+    """
     
     queryset = models.Organization.objects.all()
     serializer_class = serializers.OrganizationSerializer

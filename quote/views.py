@@ -9,12 +9,21 @@ from . import models
 from . import forms
 from django.contrib.auth.decorators import login_required
 from organization.models import Organization
+
+
 class QuoteList(LoginRequiredMixin, ListView):
-    
+    """
+        show list of quote
+    """
+
     model = models.Quote
     template_name = "quote/qupte_list.html"
 
 class QuoteCreate(LoginRequiredMixin, CreateView):
+    """
+        create a quote for an organization
+    """
+
     model = models.Quote
     form_class = forms.QuoteForm
     template_name = 'quote/quote_create.html'
@@ -31,15 +40,24 @@ class QuoteCreate(LoginRequiredMixin, CreateView):
         form.save()
         return super().form_valid(form)
 
+
 class QuoteItemCreate(LoginRequiredMixin, CreateView):
+    """
+        create qouetitem for organizations (class)
+    """
+
     model = models.QuoteItem
     form_class = forms.QuoteItemForm
     template_name = 'quote/quoteitem_create.html'
 
     success_url = reverse_lazy('quote:quote-list')
+
         
 @login_required
 def create_quoteitem(request, pk):
+    """
+        create qouetitem for organizations
+    """
 
     form_instance = forms.QuoteItemForm()
 
@@ -56,7 +74,11 @@ def create_quoteitem(request, pk):
         'form': form_instance,
         'page_title': 'create a new post',
     })
+
 class QuotePrint(LoginRequiredMixin, DetailView):
+    """
+        print pdf of quote
+    """
     model = models.Quote
     template_name = 'quote/quote_detail.html'
 

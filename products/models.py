@@ -25,7 +25,7 @@ class Product(models.Model):
 
 class OrganizationProducts(models.Model):
     name = models.CharField(max_length=100)
-    s_products = models.ManyToManyField('products.Product')
+    suggestion_products = models.ManyToManyField('products.Product')
 
 
     class Meta:
@@ -36,19 +36,19 @@ class OrganizationProducts(models.Model):
     def __str__(self):
         return self.name
 
-    def products_s(self):
-        return [product.name for product in self.s_products.all()]
+    def products_suggestion(self):
+        return [product.name for product in self.suggestion_products.all()]
 
-    def pr(self):
+    def prudoct(self):
         return [self.name]
        
     
 
-    def p(self):
+    def products(self):
         products = []
 
         for product in self.name.all():
-            products += product.org_product()
+            products += product.organization_products()
         y = "".join(products)
         return y
 

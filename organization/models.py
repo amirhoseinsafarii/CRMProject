@@ -7,6 +7,9 @@ from products.models import Product
 phone_regex = RegexValidator(regex='^0[0-9]{2,}[0-9]{7,}$', message='phone number invalid')
 
 class Organization(models.Model):
+    """
+        organization model
+    """
     city = models.CharField(max_length=50, verbose_name='نام استان')
     organization_name = models.CharField(max_length=50, verbose_name='نام سازمان')
     phone = models.CharField(max_length=11, verbose_name='تلفن')
@@ -27,16 +30,16 @@ class Organization(models.Model):
         verbose_name_plural = 'سازمان ها'
 
 
-    def s_products(self):
+    def suggestion_products(self):
         products = []
 
         for product in self.Manufactured_products.all():
-            products += product.products_s()
+            products += product.products_suggestion()
         y = "".join(products)
         return y
 
 
-    def org_product(self):
+    def organization_products(self):
         return [product.name for product in self.Manufactured_products.all()]
 
 

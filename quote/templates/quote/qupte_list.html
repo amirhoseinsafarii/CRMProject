@@ -1,14 +1,15 @@
 {% extends 'organization/base.html' %}
 {% load static %}
 {% block content %}
-    <body style="background-color: #646464;margin: 160;">
+    <body style="background-color: #fdf9f9;;margin: 160;">
         <table class="table" dir="rtl">
             <thead class="table-dark">
                 <tr>
                     <th>#</th>
+                    <th>نام سازمان</th>
                     <th>نام مشتری</th>
                     <th> دستگاه ها</th>
-                    <th>pddf خروجی</th>
+                    <th>pdf </th>
                     <th>عملیات</th>
                 </tr>
             </thead>
@@ -16,6 +17,10 @@
                 {% for i in object_list %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
+                    <td>
+                        <h5>{{ i.organization.organization_name }}</h5>
+                        {{ i.slug }}
+                    </td>
                     <td>
                         {{ i.organization.full_name }}
                     </td> 

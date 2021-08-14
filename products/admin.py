@@ -6,10 +6,10 @@ from . import models
 class OrganizationProductsAdmin(admin.ModelAdmin):
     list_display = (
         'name',
-        'products_s',
+        'products_suggestion',
     )
     list_filter = (
-        's_products',
+        'suggestion_products',
     )
     search_fields = (
         'name__icontains',

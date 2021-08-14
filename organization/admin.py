@@ -4,14 +4,14 @@ from . import models
 @admin.register(models.Organization)
 class OrganizationAdmin(admin.ModelAdmin):
     """
-        manage in admin
+        manage in admin for organization
     """
     list_display = (
         'city',
         'organization_name',
         'phone',
         'number_of_labor',
-        'org_product',
+        'organization_products',
         'full_name',
         'phone_number',
         'email',

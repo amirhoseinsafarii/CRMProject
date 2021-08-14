@@ -4,7 +4,7 @@
     مشخصات سازمان
 {% endblock %}
 {% block content %}
-<body style="background-color: #f3f3f3;">
+<body style="background-color: #fdf9f9;">
     <div style="margin: 50;position: absolute;right: 165;">
         <center>
             <div >
@@ -14,7 +14,7 @@
                 <a href="{% url 'quote:quote-create' object.pk %}" class="btn btn-sm btn-success">
                     صدور پیش فاکتور
                 </a>
-                <a href="{% url 'followup:list-followup' object.pk %}" class="btn btn-sm btn-primary">
+                <a href="{% url 'followup:list-followup' object.pk %}" class="btn btn-sm btn-warning">
                       تاریخچه پیگیری  
                 </a>
             </div>
@@ -24,8 +24,8 @@
                 <h3 id="organ_name">مشخصات سازمان: {{ object.organization_name}}</h3>
             </center>
             <center>
-            <table class="table table-bordered table-dark" dir="rtl" align="right">
-                <thead>
+            <table class="table table-light" dir="rtl" align="right">
+                <thead class="table-dark">
                     <tr>
                         <th>استان</th>
                         <th>تلفن</th>
@@ -40,9 +40,9 @@
                     <tr>
                         <td>{{ object.city }}</td>
                         <td>{{ object.phone }}</td>
-                        <td>{% for p in object.org_product %}{{ p }}{% endfor %}</td>
+                        <td>{% for p in object.organization_products %}{{ p }}{% endfor %}</td>
                         <td>{{ object.number_of_labor }}</td>
-                        <td>{% for product in object.s_products %}{{ product }}{% endfor %}</td>
+                        <td>{% for product in object.suggestion_products %}{{ product }}{% endfor %}</td>
                         <td>{{ request.user }}</td>
                         <td>{{ object.created_on }}</td>
                     </tr>
@@ -51,8 +51,8 @@
             </center>
                 <div>
                     <center>
-                    <table class="table table-bordered table-dark" dir="rtl">
-                        <thead>
+                    <table class="table table-light" dir="rtl">
+                        <thead class="table-dark">
                             <h3 id="customer"> اطلاعات مشتری</h3>
                             <tr>
                                 <th>نام و نام خانوادگی</th>

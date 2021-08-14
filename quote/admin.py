@@ -9,6 +9,7 @@ class QuoteAdmin(admin.ModelAdmin):
     """
     list_display = (
         'user',
+        'organization',
     )
 
 @admin.register(models.QuoteItem)

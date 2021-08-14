@@ -12,8 +12,7 @@ from wsgiref.util import FileWrapper
 
 class ListProduct(LoginRequiredMixin,ListView):
     """
-    list of products
+        show list of products
     """
     queryset = models.Product.objects.all()
-
 

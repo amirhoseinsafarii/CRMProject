@@ -1,7 +1,7 @@
 {% extends 'organization/base.html' %}
 {% load static %}
 {% block content %}
-    <body style="background-color: #646464;">
+    <body style="background-color: #fdf9f9;;">
         <table class="table table-light" dir="rtl" align="right" style="margin: 150;">
             <thead class="table-dark">
                 <tr>
@@ -18,7 +18,12 @@
                     <td>{{ forloop.counter }}</td>
                     <td>{{ i.name }}</td>
                     <td>{{ i.price }}</td>
-                    <td>{{ i.is_Includesـtaxes }}</td>
+                    <td>{% if i.is_Includesـtaxes %}
+                            +
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
                     <td>
                         {% if i.pdf %}
                             <button class='btn btn-success'>

@@ -4,6 +4,9 @@ from . import models
 
 @admin.register(models.FollowUP)
 class FollowUpAdmin(admin.ModelAdmin):
+    """
+        manage in admin for followup
+    """
     list_display = (
        'content',
        'organization',
@@ -11,6 +14,9 @@ class FollowUpAdmin(admin.ModelAdmin):
 
 @admin.register(models.EmailHistory)
 class EmailHistoryAdmin(admin.ModelAdmin):
+    """
+        manage in admin for emailhistory
+    """
     list_display = [
         'sender', 
         'receiver', 

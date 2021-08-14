@@ -3,6 +3,9 @@ from . import models
 
 
 class OrganizationForm(forms.ModelForm):
+    """
+        form for organization model
+    """
 
     class Meta:
         model = models.Organization

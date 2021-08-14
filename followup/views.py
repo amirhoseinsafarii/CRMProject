@@ -1,5 +1,3 @@
-
-
 import json
 from django.template.loader import render_to_string
 from followup.tasks import send_email_task
@@ -26,6 +24,7 @@ class FollowUpCreate(CreateView):
     fields = [
         'content'
     ]
+
     template_name = 'followup/followup_form.html'
 
     def get_context_data(self, **kwargs):
@@ -37,6 +36,7 @@ class FollowUpCreate(CreateView):
         form.instance.user= self.request.user
         form.instance.organization = Organization.objects.get(pk=self.get_context_data().get('pk'))
         self.object = form.save()
+
         return JsonResponse(
             data={
                 'success':True
@@ -51,7 +51,7 @@ class FollowUpList(ListView):
 
     queryset = models.FollowUP.objects.all()
 
-    def get_queryset_org(self, request):
+    def filter_organization(self, request):
         organization_id = request.GET.get('organization_id')
         organization = Organization.objects.get(pk=organization_id)
         qs = models.FollowUP.objects.filter(organization=organization)
@@ -64,10 +64,13 @@ def followup_list(request, pk):
     organization = get_object_or_404(klass=Organization, pk=pk)
     qs = models.FollowUP.objects.filter(
         organization=organization, user=request.user)
+
     return render(request=request,
     context={
         'object_list':qs
-    }, template_name='followup/followup_list.html')
+    }, 
+    template_name='followup/followup_list.html'
+    )
 
 
 
@@ -75,7 +78,7 @@ def followup_list(request, pk):
 
 def email(request, pk):
     """
-        send email
+        send quote to the organization email
     """
     quote_instance = get_object_or_404(klass=Quote, pk=pk)
     sender = request.user.username
