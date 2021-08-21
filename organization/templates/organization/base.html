@@ -1,4 +1,6 @@
 {% load static %}
+{% load i18n %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
 <html>
 <head>
     <meta charset="utf-8">
@@ -8,6 +10,7 @@
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
     <title>
         CRM
+        
         {% block page_header_title %}
             {{ page_title }}
         {% endblock %}
@@ -17,38 +20,38 @@
 <div class="container">
     <nav class="navbar rounded navbar-expand-md " style="background-color: #efeff0;width: 1400;position: absolute;left: -5;top: 15;">
         <div class="container-fluid" dir="rtl">
-            <a class="navbar-brand" href="{% url 'organization:home-page' %}" style="color: black;">صفحه اصلی</a>
+            <a class="navbar-brand" href="{% url 'organization:home-page' %}" style="color: black;">{% trans 'صفحه اصلی' %}</a>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     {% if not user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'users:login' %}" style="color: black;">ورود
+                            <a class="nav-link" href="{% url 'users:login' %}" style="color: black;">{% trans 'ورود' %}
                                 <span class="sr-only"></span></a>
                         </li>
                     {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'organization:list-organization' %}" style="position: absolute;right: 170;bottom:5;color: black;">
-                            لیست سازمان ها 
+                            {% trans 'لیست سازمان ها' %} 
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'products:list' %}" style="position: absolute;right: 295;bottom:5;color: black;">
-                            لیست محصولات
+                            {% trans 'لیست محصولات' %}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'organization:create-org' %}" style="position: absolute;right: 417;bottom:5;color: black;">
-                            ثبت سازمان
+                            {% trans 'ثبت سازمان' %} 
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'quote:quote-list' %}" style="position: absolute;right: 512;bottom:5;color: black;">
-                            لیست پبش فاکتورها
+                             {% trans 'لیست پیش فاکتور ها' %} 
                         </a>
                     </li>
                     {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'users:logout' %}" style="color: black;">خروج
+                            <a class="nav-link" href="{% url 'users:logout' %}" style="color: black;">{% trans 'خروج' %}
                                 <span class="sr-only"></span></a>
                         </li>
                     {% endif %}
